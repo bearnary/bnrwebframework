@@ -2,8 +2,6 @@ package bnrwebframework
 
 import (
 	"net/http"
-
-	"github.com/oneononex/oolib/ooerrors"
 )
 
 const (
@@ -42,20 +40,6 @@ func (c *Context) CreateResponseError(code int, message string, status ...int) {
 	resp := BaseResponse{
 		Code:    code,
 		Message: message,
-	}
-
-	s := ErrHTTPCode
-	if len(status) > 0 {
-		s = status[0]
-	}
-
-	c.JSON(s, resp)
-}
-
-func (c *Context) CreateResponseErrorWithOOError(vErr ooerrors.Error, status ...int) {
-	resp := BaseResponse{
-		Code:    vErr.Code(),
-		Message: vErr.Message(),
 	}
 
 	s := ErrHTTPCode
